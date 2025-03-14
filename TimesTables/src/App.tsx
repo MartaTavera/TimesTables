@@ -22,9 +22,7 @@ useEffect(()=>{
     const newQuestions: string[] = [];
     for (let i = 0; i < count; i++) {
       newQuestions.push(generateMultiplicationQuestion());
-      console.log("pq no veo mis preguntas loop", i);
     }
-    console.log("Questions:", newQuestions);
     return newQuestions;
   };
     setQuestions(generateQuestions());
