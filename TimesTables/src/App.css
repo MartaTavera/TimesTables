@@ -1,12 +1,19 @@
 #root {
   max-width: 1200px;
   min-width: 30%;
-  min-height: 200%;
-  margin: auto;
+  min-height: 250px;
+  margin: 10rem 40rem 15rem 30rem;
   padding: 1rem;
   text-align: center;
   background-color: rgb(25, 107, 100);
   border-radius: 50px;
+}
+
+body {
+  background-image: url('./assets/MathsCover.png');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
 }
 
 .header {
@@ -19,19 +26,21 @@
 .question-box{
   max-width: 260px;
   height: 40px;
-  background-color: #faebd7;
-  margin: 4rem 9rem 6rem 9rem;
+  background-color:white;
+  margin: 5rem 9rem 6rem 8rem;
   text-align: left;
   padding: 5px;
   border-radius: 8px;
   font-size: larger;
+  font-weight: bolder;
 }
 .user-answer{
   padding: 4px;
-  border:  #faebd7;
-  background-color: #faebd7;
+  border:  white;
+  background-color:white;
   border-radius: 50px;   
   font-size: large;
+  font-weight: bold;
   color: blue;
   max-width: 60px;
 }
@@ -46,4 +55,10 @@ input.user-answer[type=number]:focus {
 .user-answer::-webkit-outer-spin-button {
   -webkit-appearance: none;
   margin: 0;
+}
+.end-quiz-text{
+  text-align: center;
+  margin: 5rem auto;
+  font-size: 45px;
+  color: white;
 }
