@@ -56,6 +56,9 @@ input.user-answer[type=number]:focus {
   -webkit-appearance: none;
   margin: 0;
 }
+.answer-feedback{
+  text-align:right;
+}
 .end-quiz-text{
   text-align: center;
   margin: 5rem auto;
