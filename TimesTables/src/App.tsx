@@ -17,13 +17,14 @@ function App() {
   const [correctAnswers, setCorrectAnswers] = useState<number[]>([]);
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
   const [correctAnswersIndex, setCorrectAnswersIndex] = useState(0)
+  const [score, setScore] = useState(0);
   const [feedback, setFeedback] = useState(false);
   const [userAnswer, setUserAnswer] = useState("");
   const [result, setResult] = useState("");
   const inputRef = useRef(null);
   
 useEffect(()=>{
-  const generateQuestions = (count = 3)=>{
+  const generateQuestions = (count = 5)=>{
     const newQuestions =[];
     const correctAnswers =[];
     for (let i = 0; i < count; i++) {
@@ -44,8 +45,8 @@ useEffect(()=>{
 const handleSubmit = (e: { preventDefault: () => void; }) => {
   e.preventDefault();
   const correctResult = (parseInt(userAnswer) === correctAnswers[currentQuestionIndex]);
-    setResult(correctResult? "correct": "incorrect")
-    
+    setResult(correctResult? "correct": "incorrect")   
+    setScore(correctResult? score + 1: score)
   setFeedback(true);
   setUserAnswer("");
   if (currentQuestionIndex < questions.length - 1) {
@@ -62,7 +63,17 @@ const handleSubmit = (e: { preventDefault: () => void; }) => {
 
 const handleInputChange = (e: { target: { value: SetStateAction<string>; }; }) => {
   setUserAnswer(e.target.value);
+  setFeedback(false);
 };
+
+const resetQuiz = () => {
+  setCurrentQuestionIndex(0);
+  setUserAnswer("");
+  setFeedback(false);
+  setScore(0);
+  
+};
+
 return (
   <div>
     {currentQuestionIndex < questions.length ? (
@@ -82,13 +93,27 @@ return (
         </form>
         {feedback && (
           <div className="answer-feedback">
-          {result == "correct" ? '✓' : `✗`}
-        </div>  
-         )}
+             <span className={result === "correct" ? 'correct' : 'incorrect'}>
+              {result === "correct" ? '✓' : '✗'}
+            </span>          
+            <p className="score"> 
+            Score = {score}/{currentQuestionIndex}
+            </p>
+          </div>  
+        )}
       
+          
       </div>
       ) : (
-        <div className="end-quiz-text">Quiz completed!</div>
+        <div className="end-quiz-text" > Quiz completed! 
+        <p className='final-score'>Your final Score is : {score}/{questions.length}</p>
+        <div>
+          <button 
+            onClick={resetQuiz}>
+            Try again
+            </button>
+           </div>
+        </div>
       )}
     </div>  
   
