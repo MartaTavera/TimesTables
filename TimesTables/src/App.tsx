@@ -21,7 +21,7 @@ function App() {
   const [feedback, setFeedback] = useState(false);
   const [userAnswer, setUserAnswer] = useState("");
   const [result, setResult] = useState("");
-  const inputRef = useRef(null);
+  const inputRef = useRef<HTMLInputElement>(null);
   
 useEffect(()=>{
   const generateQuestions = (count = 5)=>{
@@ -66,13 +66,7 @@ const handleInputChange = (e: { target: { value: SetStateAction<string>; }; }) =
   setFeedback(false);
 };
 
-const resetQuiz = () => {
-  setCurrentQuestionIndex(0);
-  setUserAnswer("");
-  setFeedback(false);
-  setScore(0);
-  
-};
+
 
 return (
   <div>
@@ -109,7 +103,7 @@ return (
         <p className='final-score'>Your final Score is : {score}/{questions.length}</p>
         <div>
           <button 
-            onClick={resetQuiz}>
+            onClick={()=>window.location.reload()}>
             Try again
             </button>
            </div>

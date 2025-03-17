@@ -85,7 +85,7 @@ input.user-answer[type=number]:focus {
 }
 .end-quiz-text{
   text-align: center;
-  margin: 5rem auto;
+  margin: 2rem auto;
   font-size: 45px;
   color: white;
 }
