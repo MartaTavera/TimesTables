@@ -1,5 +1,5 @@
 import { SetStateAction, useState, useRef, useEffect } from 'react';
-import MathsCover from './assets/MathsCover.png'
+import Rocket1 from './assets/Rocket1.png'
 import './App.css';
 
 
@@ -70,35 +70,39 @@ const handleInputChange = (e: { target: { value: SetStateAction<string>; }; }) =
 
 return (
   <div>
-    {currentQuestionIndex < questions.length ? (
-      <div className='question-box'>
-        <form onSubmit={handleSubmit}>
-          <label style={{
-          display: 'inline-block'}}>
-          {questions[currentQuestionIndex]} =
-          </label>
-          <input className='user-answer'
-          type="number"
-          value={userAnswer}
-          onChange={handleInputChange}         
-          ref={inputRef}
-          autoFocus
-          />
-        </form>
-        {feedback && (
-          <div className="answer-feedback">
-             <span className={result === "correct" ? 'correct' : 'incorrect'}>
-              {result === "correct" ? '✓' : '✗'}
-            </span>          
-            <p className="score"> 
-            Score = {score}/{currentQuestionIndex}
+    {currentQuestionIndex < questions.length ? (     
+    <div className="title">Multiplication Quiz
+    <div className="question-container">
+        <div className='question-box'>
+          <form onSubmit={handleSubmit}>
+            <label >
+              {questions[currentQuestionIndex]} =
+            </label>
+            <input className='user-answer'
+              type="number"
+              value={userAnswer}
+              onChange={handleInputChange}
+              ref={inputRef}
+              autoFocus />
+          </form>
+          {feedback && (
+            <div className="answer-feedback">
+              <span className={result === "correct" ? 'correct' : 'incorrect'}>
+                {result === "correct" ? '✓' : '✗'}
+              </span>
+            </div>
+          )}
+        </div>
+      </div><div>
+          {currentQuestionIndex != 0 && (
+            <p className="score">
+              Score = {score}/{currentQuestionIndex}
             </p>
-          </div>  
-        )}
+          )}
+        </div>
+  </div>
       
-          
-      </div>
-      ) : (
+    ) : (
         <div className="end-quiz-text" > Quiz completed! 
         <p className='final-score'>Your final Score is : {score}/{questions.length}</p>
         <div>

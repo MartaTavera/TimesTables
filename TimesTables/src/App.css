@@ -1,20 +1,15 @@
 #root {
   max-width: 1200px;
   min-width: 30%;
-  min-height: 250px;
-  margin: 10rem 40rem 15rem 30rem;
+  height: 300px;
+  /*margin: 10rem 80rem 15rem 50rem;*/
+  margin: auto auto auto 50rem;
   padding: 1rem;
   text-align: center;
-  background-color: rgb(25, 107, 100);
+  background-color: rgb(27, 30, 81);
   border-radius: 50px;
 }
 
-body {
-  background-image: url('./assets/MathsCover.png');
-  background-size: cover;
-  background-position: center;
-  background-repeat: no-repeat;
-}
 
 .header {
   min-height: 10vh;
@@ -23,34 +18,48 @@ body {
   background-color: #c2d573;
 }
 
+form {
+  display: flex;
+  align-items: center;
+}
+.question-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: -1rem auto 1rem;
+  position: relative; /* For positioning the feedback */
+}
+
 .question-box{
-  max-width: 260px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem; 
+  max-width: 100%;
   height: 40px;
-  background-color:white;
-  margin: 5rem 9rem 6rem 8rem;
-  text-align: left;
+  background-color: rgb(27, 30, 81);
+  margin: 5rem auto;
   padding: 5px;
   border-radius: 8px;
-  font-size: larger;
+  color: white;
+  font-size: 2rem;
   font-weight: bolder;
+  position: relative; 
 }
 .user-answer{
   padding: 4px;
   border:  white;
   background-color:white;
-  border-radius: 50px;   
+  border-radius: 40px;   
+  margin-left: 0.5rem;
   font-size: large;
   font-weight: bold;
   color: blue;
-  .correct {
-  color: green;
+  width: 60px;
+  border: none;
+  text-align: center;
 }
 
-.incorrect {
-  color: red;
-}
-  max-width: 60px;
-}
 input.user-answer[type=number]:focus {
   border: none;
 }
@@ -64,24 +73,31 @@ input.user-answer[type=number]:focus {
   margin: 0;
 }
 .answer-feedback{
-  text-align:right;
-  margin-bottom: 10rem;
+  right: -8rem; /* Adjust  */
+  top: 80%;
+  transform: translateY(-10%);
   font-size: 30px;
-  
+  margin: ;
 }
 
 .correct {
   color: rgb(43, 220, 43);
 }
-
 .incorrect {
   color: red;
 }
-.score{
+
+.score {
   color: white;
-  margin-bottom: 2rem;
-  text-align: left;
-  font-size: large;
+  font-size: 1.5rem;
+  margin: -4rem auto 0rem auto;
+  text-align: center;
+}
+.title{
+  text-align: center;
+  margin: 2rem auto;
+  font-size: 40px;
+  color: white;
 }
 .end-quiz-text{
   text-align: center;

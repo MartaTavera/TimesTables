@@ -14,8 +14,8 @@
 }
 
 body {
-  background-image: url('./assets/MathsCover.png');
-  background-size: cover;
+  background-image: url('./assets/Rocket2.png');
+  background-size: contain !important;
   background-position: center;
   background-repeat: no-repeat;
 }
@@ -41,6 +41,9 @@ body {
 h1 {
   font-size: 3.2em;
   line-height: 1.1;
+}
+h2 {
+  font-size: 3.2em;
 }
 
 button {
