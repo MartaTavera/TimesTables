@@ -1,27 +1,26 @@
+/* Base styles optimized for landscape */
 #root {
-  max-width: 1200px;
-  min-width: 30%;
-  height: 300px;
-  /*margin: 10rem 80rem 15rem 50rem;*/
-  margin: auto auto auto 50rem;
-  padding: 1rem;
+  max-width: 40%;
+  width: 70%;
+  min-height: 250px;
+  height: auto;
+  margin: 2rem 2rem 2rem auto; /* Right-aligned */
+  padding: 1.5rem;
   text-align: center;
   background-color: rgb(27, 30, 81);
   border-radius: 50px;
+  box-sizing: border-box;
+  position: relative;
+  right: 3rem;
+  color: white;
 }
 
-
-.header {
-  min-height: 10vh;
-  min-width: 40vh;
-  padding: 2rem;
-  background-color: #c2d573;
+/* Landscape-optimized layout */
+.title {
+  font-size: clamp(14px, 3vw, 40px);
+  margin: 0.5rem 0;
 }
 
-form {
-  display: flex;
-  align-items: center;
-}
 .question-container {
   display: flex;
   justify-content: center;
@@ -30,36 +29,42 @@ form {
   position: relative; /* For positioning the feedback */
 }
 
-.question-box{
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 1rem; 
-  max-width: 100%;
-  height: 40px;
-  background-color: rgb(27, 30, 81);
-  margin: 5rem auto;
-  padding: 5px;
-  border-radius: 8px;
-  color: white;
-  font-size: 2rem;
-  font-weight: bolder;
-  position: relative; 
+.question-box {
+  font-size: clamp(1rem, 3vw, 40px);
+  margin: 1.5rem auto;
+  height: 35px;
+}
+
+.score {
+  margin: 0.5rem auto 1rem 0;
+  /*font-size: 1.5rem;*/
+  font-size: clamp(10px, vw, 24px);
 }
 .user-answer{
   padding: 4px;
-  border:  white;
-  background-color:white;
+  background-color:white ;
   border-radius: 40px;   
   margin-left: 0.5rem;
-  font-size: large;
+  font-size: clamp(1rem, 3vw,35px); 
   font-weight: bold;
   color: blue;
-  width: 60px;
+  width: 90px;
   border: none;
   text-align: center;
 }
+.end-quiz-text{
+  text-align: center;
+  margin: 0.5rem auto;
+  /*font-size: 45px;*/
+  font-size: clamp(1.2rem, 3vw, 45px);
+  color: white;
+}
 
+.final-score{
+  text-align: center;
+  font-size: clamp(1.2rem, 3vw, 1.8rem);
+  /*font-size: 30px;*/
+}
 input.user-answer[type=number]:focus {
   border: none;
 }
@@ -72,40 +77,89 @@ input.user-answer[type=number]:focus {
   -webkit-appearance: none;
   margin: 0;
 }
-.answer-feedback{
-  right: -8rem; /* Adjust  */
-  top: 80%;
-  transform: translateY(-10%);
-  font-size: 30px;
-  margin: ;
+
+.answer-feedback{ 
+  right: -2rem;
+  transform: translateY(-85%);
+  font-size: clamp(18px, 3vw, 50px);
+  margin-bottom: 90%;
+  margin-right: -150%;
 }
 
 .correct {
-  color: rgb(43, 220, 43);
+ color: rgb(43, 220, 43);
 }
 .incorrect {
-  color: red;
+   color: red;
+}
+.correct-answer{
+  font-size: clamp(10px, 2vw, 25px);
+}
+/* Media queries for different screen sizes in landscape */
+@media (max-width: 1324px) {
+  #root {
+    width: 75%;
+    right: 2rem;
+  }
 }
 
-.score {
-  color: white;
-  font-size: 1.5rem;
-  margin: -4rem auto 0rem auto;
-  text-align: center;
+@media (max-width: 768px) {
+  #root {
+    width: 80%;
+    right: 1rem;
+    border-radius: 30px;
+  }
+  .question-box{
+    row-gap: 30px;
+  }
+ .user-answer{
+  width:60px;
+  padding:1px;
+ }
+  .answer-feedback   {
+    right: -2rem;  
+  }
+  .score{
+    font-size: 1rem;    
+  }
 }
-.title{
-  text-align: center;
-  margin: 2rem auto;
-  font-size: 40px;
-  color: white;
+
+@media (max-width: 480px) {
+  #root {
+    width: 100%;
+    padding: 1rem;
+    border-radius: 20px;
+    min-height: 300px;
+  }
+  .question-container{
+    width:90%;
+  }
+  .question-box {
+    margin: 1rem auto;
+  }
+  .answer-feedback {
+    position: static;
+    margin-top: 0.5rem;
+  }
 }
-.end-quiz-text{
-  text-align: center;
-  margin: 2rem auto;
-  font-size: 45px;
-  color: white;
-}
-.final-score{
-  text-align: center;
-  font-size: 30px;
+
+/* For very small screens */
+@media (max-height: 400px) {
+  #root {
+    padding: 0.75rem;
+  }
+  .question-container{
+    margin: -1rem auto 0rem;
+    height: 10px;
+  }
+  .question-box {
+    margin: 0.75rem auto auto auto;
+    
+  }
+  .user-answer{
+    width: 60%;
+  }
+  .score{
+    margin: 4rem auto 0.5rem 0;
+  }
 }

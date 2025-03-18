@@ -24,7 +24,7 @@ function App() {
   const inputRef = useRef<HTMLInputElement>(null);
   
 useEffect(()=>{
-  const generateQuestions = (count = 5)=>{
+  const generateQuestions = (count = 3)=>{
     const newQuestions =[];
     const correctAnswers =[];
     for (let i = 0; i < count; i++) {
@@ -58,7 +58,7 @@ const handleSubmit = (e: { preventDefault: () => void; }) => {
   }
   if (inputRef.current) {
     inputRef.current.focus();
-    }
+  }
 };
 
 const handleInputChange = (e: { target: { value: SetStateAction<string>; }; }) => {
@@ -72,7 +72,7 @@ return (
   <div>
     {currentQuestionIndex < questions.length ? (     
     <div className="title">Multiplication Quiz
-    <div className="question-container">
+      <div className="question-container">
         <div className='question-box'>
           <form onSubmit={handleSubmit}>
             <label >
@@ -88,19 +88,25 @@ return (
           {feedback && (
             <div className="answer-feedback">
               <span className={result === "correct" ? 'correct' : 'incorrect'}>
-                {result === "correct" ? '✓' : '✗'}
+                {result === "correct" ? '✓' : (
+                  <>
+                    <span>✗</span>
+                     <span className='correct-answer'>Answer is: {correctAnswers[currentQuestionIndex-1]}</span>
+                  </>
+                )}
               </span>
             </div>
           )}
         </div>
-      </div><div>
-          {currentQuestionIndex != 0 && (
-            <p className="score">
-              Score = {score}/{currentQuestionIndex}
-            </p>
-          )}
-        </div>
-  </div>
+      </div>
+          <div>
+            {currentQuestionIndex != 0 && (
+              <p className="score">
+                Score = {score}/{currentQuestionIndex}
+              </p>
+            )}
+          </div>
+    </div>
       
     ) : (
         <div className="end-quiz-text" > Quiz completed! 

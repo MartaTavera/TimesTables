@@ -15,9 +15,10 @@
 
 body {
   background-image: url('./assets/Rocket2.png');
-  background-size: contain !important;
+  background-size: contain;
   background-position: center;
   background-repeat: no-repeat;
+  background-color: #213547;
 }
 
 
@@ -75,5 +76,14 @@ button:focus-visible {
   }
   button {
     background-color: #f9f9f9;
+  }
+}
+@media (max-height: 400px) {
+  body {
+    background-image: url('./assets/Rocket2.png');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-color: #213547;
   }
 }
