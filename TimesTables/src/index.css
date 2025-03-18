@@ -78,7 +78,7 @@ button:focus-visible {
     background-color: #f9f9f9;
   }
 }
-@media (max-height: 400px) {
+/*@media (max-height: 400px) {
   body {
     background-image: url('./assets/Rocket2.png');
     background-size: cover;
@@ -86,4 +86,4 @@ button:focus-visible {
     background-repeat: no-repeat;
     background-color: #213547;
   }
-}
+}*/

@@ -2,7 +2,7 @@
 #root {
   max-width: 40%;
   width: 70%;
-  min-height: 250px;
+  min-height: auto;
   height: auto;
   margin: 2rem 2rem 2rem auto; /* Right-aligned */
   padding: 1.5rem;
@@ -126,10 +126,10 @@ input.user-answer[type=number]:focus {
 
 @media (max-width: 480px) {
   #root {
-    width: 100%;
+    width: 80%;
     padding: 1rem;
     border-radius: 20px;
-    min-height: 300px;
+    max-height: 50%;
   }
   .question-container{
     width:90%;
@@ -137,10 +137,18 @@ input.user-answer[type=number]:focus {
   .question-box {
     margin: 1rem auto;
   }
+  .user-answer{
+    width: 60%;
+  }
   .answer-feedback {
     position: static;
     margin-top: 0.5rem;
+    margin-left: -2rem;
   }
+  .correct {
+    color: rgb(43, 220, 43);
+    margin-left: -2.9rem;
+   }
 }
 
 /* For very small screens */
