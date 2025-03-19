@@ -24,7 +24,7 @@ function App() {
   const inputRef = useRef<HTMLInputElement>(null);
   
 useEffect(()=>{
-  const generateQuestions = (count = 3)=>{
+  const generateQuestions = (count = 8)=>{
     const newQuestions =[];
     const correctAnswers =[];
     for (let i = 0; i < count; i++) {
@@ -48,14 +48,17 @@ const handleSubmit = (e: { preventDefault: () => void; }) => {
     setResult(correctResult? "correct": "incorrect")   
     setScore(correctResult? score + 1: score)
   setFeedback(true);
-  setUserAnswer("");
-  if (currentQuestionIndex < questions.length - 1) {
-    setCurrentQuestionIndex(currentQuestionIndex + 1);
-    setCorrectAnswersIndex(currentQuestionIndex + 1);
-  } else {
-    setCurrentQuestionIndex(questions.length);
-    setCorrectAnswersIndex(questions.length)
-  }
+  setTimeout(()=>{
+    setUserAnswer("");
+    if (currentQuestionIndex < questions.length - 1) {
+      setCurrentQuestionIndex(currentQuestionIndex + 1);
+      setCorrectAnswersIndex(currentQuestionIndex + 1);
+    } else {
+      setCurrentQuestionIndex(questions.length);
+      setCorrectAnswersIndex(questions.length)
+    }
+    setFeedback(false);
+    },500)
   if (inputRef.current) {
     inputRef.current.focus();
   }
@@ -91,7 +94,7 @@ return (
                 {result === "correct" ? '✓' : (
                   <>
                     <span>✗</span>
-                     <span className='correct-answer'>Answer is: {correctAnswers[currentQuestionIndex-1]}</span>
+                     <span className='correct-answer'>Answer is: {correctAnswers[currentQuestionIndex]}</span>
                   </>
                 )}
               </span>
