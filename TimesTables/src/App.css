@@ -96,6 +96,12 @@ input.user-answer[type=number]:focus {
   font-size: clamp(10px, 2vw, 25px);
 }
 /* Media queries for different screen sizes in landscape */
+@media (min-width:1324px){
+  #root {
+    width: 75%;
+    right: 15rem;
+  }  
+}
 @media (max-width: 1324px) {
   #root {
     width: 75%;
