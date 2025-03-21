@@ -1,5 +1,4 @@
 import { SetStateAction, useState, useRef, useEffect } from 'react';
-import Rocket1 from './assets/Rocket1.png'
 import './App.css';
 
 
@@ -16,7 +15,6 @@ function App() {
   const [questions, setQuestions] = useState<string[]>([]);
   const [correctAnswers, setCorrectAnswers] = useState<number[]>([]);
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
-  const [correctAnswersIndex, setCorrectAnswersIndex] = useState(0)
   const [score, setScore] = useState(0);
   const [feedback, setFeedback] = useState(false);
   const [userAnswer, setUserAnswer] = useState("");
@@ -52,10 +50,8 @@ const handleSubmit = (e: { preventDefault: () => void; }) => {
     setUserAnswer("");
     if (currentQuestionIndex < questions.length - 1) {
       setCurrentQuestionIndex(currentQuestionIndex + 1);
-      setCorrectAnswersIndex(currentQuestionIndex + 1);
     } else {
       setCurrentQuestionIndex(questions.length);
-      setCorrectAnswersIndex(questions.length)
     }
     setFeedback(false);
     },500)
