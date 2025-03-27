@@ -22,7 +22,7 @@ function App() {
   const inputRef = useRef<HTMLInputElement>(null);
   
 useEffect(()=>{
-  const generateQuestions = (count = 8)=>{
+  const generateQuestions = (count = 30)=>{
     const newQuestions =[];
     const correctAnswers =[];
     for (let i = 0; i < count; i++) {

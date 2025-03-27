@@ -78,6 +78,10 @@ input.user-answer[type=number]:focus {
   margin: 0;
 }
 
+.user-answer {
+  -moz-appearance: textfield;
+}
+
 .answer-feedback{ 
   right: -2rem;
   transform: translateY(-85%);
