@@ -27,7 +27,9 @@ useEffect(()=>{
     const correctAnswers =[];
     for (let i = 0; i < count; i++) {
       const generatedQuestion = generateMultiplicationQuestion();
+     
       newQuestions.push(generatedQuestion.question);
+      
       correctAnswers.push(generatedQuestion.correctAnswer);
     }
     setQuestions(newQuestions);
