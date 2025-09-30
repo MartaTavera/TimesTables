@@ -3,15 +3,7 @@ import './App.css';
 
 
 function App() {
-  function generateMultiplicationQuestion():{ question: string, correctAnswer: number }{
-    const factor1 = Math.floor(Math.random() * 10  + 2);
-    const factor2 =  Math.floor(Math.random() * 10 + 2);
-    const correctAnswer = factor1 * factor2;
-    const question = `${factor1} × ${factor2} `;
-    console.log(factor1, factor2)
-    console.log("answers ", correctAnswer);
-    return {question, correctAnswer}
-  }
+
   const [questions, setQuestions] = useState<string[]>([]);
   const [correctAnswers, setCorrectAnswers] = useState<number[]>([]);
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
@@ -22,23 +14,25 @@ function App() {
   const inputRef = useRef<HTMLInputElement>(null);
   
 useEffect(()=>{
-  const generateQuestions = (count = 15)=>{
-    const newQuestions =[];
-    const correctAnswers =[];
-    for (let i = 0; i < count; i++) {
-      const generatedQuestion = generateMultiplicationQuestion();
-     
-      newQuestions.push(generatedQuestion.question);
-      
-      correctAnswers.push(generatedQuestion.correctAnswer);
-    }
-    setQuestions(newQuestions);
-    setCorrectAnswers(correctAnswers);
+  const fetchQuestions = async()=>{
+    try{
+    const response = await fetch('http://localhost:5168/api/questions?count=10');
+    const data = await response.json();
 
-    console.log("Questions:", newQuestions);
-    console.log("Answers: ",correctAnswers);
-  };
- generateQuestions();
+    console.log("Raw data from backend:", data);
+    const questionsString = data.map((q:any) =>q.questionText);
+    const answers = data.map((q:any) => q.answer);
+
+    setQuestions(questionsString);
+    setCorrectAnswers(answers);
+
+    console.log("Questions:", questionsString);
+    console.log("Answers:", answers);
+  } catch (error) {
+    console.error("Error fetching questions:", error);
+  }
+};
+fetchQuestions();
 }, []);
 
 

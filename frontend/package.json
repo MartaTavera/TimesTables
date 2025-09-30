@@ -1,7 +1,7 @@
 {
   "name": "timestables",
   "private": true,
-  "homepage": "https://MartaTavera.github.io/TimesTables",
+  "homepage": "http://localhost:5173/TimesTables", 
   "version": "0.0.0",
   "scripts": {
     "predeploy": "npm run build",
