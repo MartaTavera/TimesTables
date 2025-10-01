@@ -9,6 +9,15 @@ builder.Services.AddSwaggerGen();
 
 builder.Services.AddScoped<QuestionsGeneratorService>();
 
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("AllowFrontend", policy =>
+    {
+        policy.WithOrigins("http://localhost:5173")  // front end port (check)
+              .AllowAnyHeader()
+              .AllowAnyMethod();
+    });
+});
 
 var app = builder.Build();
 
@@ -20,10 +29,7 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
-
-
-
-
+app.UseCors("AllowFrontend");
 app.MapControllers();
 
 app.Run();

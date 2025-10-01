@@ -24,5 +24,36 @@ namespace TimetablesAPI.Controllers
             var questions = _questionGenerator.GenerateBatch(count, min, max);
             return Ok(questions);
         }
+    
+        [HttpPost("submit")]
+        public ActionResult<QuizResult> SubmitAnswers([FromBody] List<UserAnswer> userAnswers)
+        {
+            int correctCount = 0;
+            var results = new List<AnswerResult>();
+
+            foreach (var answer in userAnswers)
+            {
+                bool isCorrect = (answer.Number1 * answer.Number2) == answer.UserAnswer;
+            
+                if (isCorrect) correctCount++;
+
+                results.Add(new AnswerResult
+                {
+                    Number1 = answer.Number1,
+                    Number2 = answer.Number2,
+                    UserAnswer = answer.UserAnswer,
+                    CorrectAnswer = answer.Number1 * answer.Number2,  
+                    IsCorrect = isCorrect
+                });
+            }
+
+            return Ok(new QuizResult
+            {
+            TotalQuestions = userAnswers.Count,
+            CorrectAnswers = correctCount,
+            Score = (int)((correctCount / (double)userAnswers.Count) * 100),
+            Results = results
+            });
+        }
     }
 }
