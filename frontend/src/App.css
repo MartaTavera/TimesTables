@@ -90,6 +90,37 @@ input.user-answer[type=number]:focus {
   margin-right: -150%;
 }
 
+.score-line{
+  text-align: center;
+  margin: 0.5rem auto;
+  /*font-size: 45px;*/
+  font-size: clamp(1.1rem, 3vw, 35px);
+  color: white;
+}
+.summary-answers-grid {
+  display:flex;
+  flex-wrap: wrap;
+ justify-content:center;
+ gap: 1rem;
+ width: 100%;
+
+}
+
+.incorrect-answers { 
+  font-size: clamp(1rem, 2vw, 30px);
+  background-color:#2d3186;
+  border-radius: 0.5rem;
+  padding: 1.0rem;
+  box-shadow: 0 3px 6px rgba(6,7,19, 1);
+  transition: box-shadow 0.2s;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px; 
+  /*width: calc(25% - 1rem); /* Calculate width accounting for gap */
+  /*box-sizing: border-box; /* Include padding in width calculation */
+}
+
 .correct {
  color: rgb(43, 220, 43);
 }
@@ -98,6 +129,27 @@ input.user-answer[type=number]:focus {
 }
 .correct-answer{
   font-size: clamp(10px, 2vw, 25px);
+}
+
+.question-count-selector {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 15px;
+  margin: 20px 0;
+  flex-wrap: wrap;
+}
+
+.button-group {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.question-button {
+  padding: 2px 8px;
+  font-size: 18px;
+  cursor: pointer;
 }
 /* Media queries for different screen sizes in landscape */
 @media (min-width:1324px){
@@ -179,5 +231,20 @@ input.user-answer[type=number]:focus {
   }
   .score{
     margin: 4rem auto 0.5rem 0;
+  }
+}
+
+@media (max-width: 600px) {
+  .question-count-selector {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  
+  .button-group {
+    width: 100%;
+  }
+  
+  .button-group button {
+    flex: 1; 
   }
 }
