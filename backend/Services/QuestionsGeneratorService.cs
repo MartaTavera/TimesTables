@@ -6,7 +6,7 @@ namespace TimetablesAPI.Services
     {
         private readonly Random _random = new Random();
 
-        public List<Question> GenerateBatch(int count = 10, int minNumber = 2, int maxNumber = 12)
+        public List<Question> GenerateBatch(int count = 5, int minNumber = 2, int maxNumber = 12)
         {
             var questions = new List<Question>();
             var usedPairs = new HashSet<string>(); 

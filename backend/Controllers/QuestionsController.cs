@@ -33,7 +33,7 @@ namespace TimetablesAPI.Controllers
 
             foreach (var answer in userAnswers)
             {
-                bool isCorrect = (answer.Number1 * answer.Number2) == answer.UserAnswer;
+                bool isCorrect = (answer.Number1 * answer.Number2) == answer.UAnswer;
             
                 if (isCorrect) correctCount++;
 
@@ -41,8 +41,9 @@ namespace TimetablesAPI.Controllers
                 {
                     Number1 = answer.Number1,
                     Number2 = answer.Number2,
-                    UserAnswer = answer.UserAnswer,
-                    CorrectAnswer = answer.Number1 * answer.Number2,  
+                    UserAnswer = answer.UAnswer,
+                    CorrectAnswer = answer.Number1 * answer.Number2,
+                      
                     IsCorrect = isCorrect
                 });
             }

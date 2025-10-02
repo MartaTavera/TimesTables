@@ -1,6 +1,6 @@
 namespace TimetablesAPI.Models
 {
-    public class AnswerFeedback
+    public class AnswerResult
     {
         public int Number1 { get; set; }
         public int Number2 { get; set; }
