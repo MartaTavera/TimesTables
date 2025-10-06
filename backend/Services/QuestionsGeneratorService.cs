@@ -27,7 +27,7 @@ namespace TimetablesAPI.Services
                 {
                     Number1 = num1,
                     Number2 = num2,
-                    Operation = "×",
+                    Operation = "&times",
                     Answer = num1 * num2,
                     QuestionText = $"{num1} × {num2}"
                 });
