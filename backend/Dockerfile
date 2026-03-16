@@ -1,30 +1,22 @@
-# Build stage
+# Build and publish stage
 FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build
 WORKDIR /src
 
-# Copy the entire backend directory
+# Copy and restore
 COPY . .
-
-# Restore dependencies
 RUN dotnet restore
 
-# Build the application
-RUN dotnet build -c Release -o /app/build
-
-# Publish stage - creates the runtime-ready files
-FROM mcr.microsoft.com/dotnet/sdk:8.0 AS publish
-WORKDIR /src
-COPY --from=build /src .
+# Publish to /app/publish
 RUN dotnet publish -c Release -o /app/publish
 
 # Runtime stage
 FROM mcr.microsoft.com/dotnet/aspnet:8.0
 WORKDIR /app
 
-# Copy published app
-COPY --from=publish /app/publish .
+# Copy published files
+COPY --from=build /app/publish .
 
-# Expose port (Render uses 10000)
+# Expose port
 EXPOSE 10000
 
 # Set environment variables
