@@ -62,7 +62,8 @@ function App() {
   useEffect(() => {
     const fetchQuestions = async () => {
       try {
-        const response = await fetch(`http://localhost:5168/api/questions?count=${questionCount}&operation=${operationType}`);
+        const response = await fetch(`https://timestables-bwbqcvevgaf5fsdp.canadacentral-01.azurewebsites.net/api/questions?count=${questionCount}&operation=${operationType}`);
+
         const data = await response.json();
         const questionsString = data.map((q: any) => q.questionText);
         const answers = data.map((q: any) => q.answer);

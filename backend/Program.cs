@@ -28,7 +28,7 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
-// app.UseHttpsRedirection();  // Render handles HTTPS at proxy level
+app.UseHttpsRedirection();  // Render handles HTTPS at proxy level
 app.UseCors("AllowFrontend");
 app.MapControllers();
 
