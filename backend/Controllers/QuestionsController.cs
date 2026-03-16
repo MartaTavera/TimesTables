@@ -1,6 +1,6 @@
 using Microsoft.AspNetCore.Mvc;
 using TimetablesAPI.Models;
-using TimetablesAPI.Services;  
+using TimetablesAPI.Services;
 
 namespace TimetablesAPI.Controllers
 {
@@ -8,7 +8,7 @@ namespace TimetablesAPI.Controllers
     [Route("api/[controller]")]
     public class QuestionsController : ControllerBase
     {
-        private readonly QuestionsGeneratorService _questionGenerator;  
+        private readonly QuestionsGeneratorService _questionGenerator;
 
         public QuestionsController(QuestionsGeneratorService questionGenerator)
         {
@@ -18,13 +18,14 @@ namespace TimetablesAPI.Controllers
         [HttpGet]
         public ActionResult<IEnumerable<Question>> GetQuestions(
             [FromQuery] int count = 10,
-            [FromQuery] int min = 2,      
-            [FromQuery] int max = 12)
+            [FromQuery] int min = 2,
+            [FromQuery] int max = 12,
+            [FromQuery] string operation = "both")
         {
-            var questions = _questionGenerator.GenerateBatch(count, min, max);
+            var questions = _questionGenerator.GenerateBatch(count, min, max, operation);
             return Ok(questions);
         }
-    
+
         [HttpPost("submit")]
         public ActionResult<QuizResult> SubmitAnswers([FromBody] List<UserAnswer> userAnswers)
         {
@@ -33,27 +34,33 @@ namespace TimetablesAPI.Controllers
 
             foreach (var answer in userAnswers)
             {
-                bool isCorrect = (answer.Number1 * answer.Number2) == answer.UAnswer;
-            
+                bool isCorrect = answer.Operation == "÷"
+                    ? (answer.Number1 / answer.Number2) == answer.UAnswer
+                    : (answer.Number1 * answer.Number2) == answer.UAnswer;
+
+                int correctAnswer = answer.Operation == "÷"
+                    ? answer.Number1 / answer.Number2
+                    : answer.Number1 * answer.Number2;
+
                 if (isCorrect) correctCount++;
 
                 results.Add(new AnswerResult
                 {
                     Number1 = answer.Number1,
                     Number2 = answer.Number2,
+                    Operation = answer.Operation,
                     UserAnswer = answer.UAnswer,
-                    CorrectAnswer = answer.Number1 * answer.Number2,
-                      
+                    CorrectAnswer = correctAnswer,
                     IsCorrect = isCorrect
                 });
             }
 
             return Ok(new QuizResult
             {
-            TotalQuestions = userAnswers.Count,
-            CorrectAnswers = correctCount,
-            Score = (int)((correctCount / (double)userAnswers.Count) * 100),
-            Results = results
+                TotalQuestions = userAnswers.Count,
+                CorrectAnswers = correctCount,
+                Score = (int)((correctCount / (double)userAnswers.Count) * 100),
+                Results = results
             });
         }
     }
