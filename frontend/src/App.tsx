@@ -172,6 +172,7 @@ function App() {
             <div className="question-count-selector">
               <span style={{ fontSize: '1.1em' }}> Select number of questions: </span>
               <div className="button-group">
+              <button className={`question-button ${questionCount === 10 ? 'selected' : ''}`} onClick={() => restartQuiz(10, operationType)}>10</button>
                 <button className={`question-button ${questionCount === 20 ? 'selected' : ''}`} onClick={() => restartQuiz(20, operationType)}>20</button>
                 <button className={`question-button ${questionCount === 30 ? 'selected' : ''}`} onClick={() => restartQuiz(30, operationType)}>30</button>
                 <button className={`question-button ${questionCount === 40 ? 'selected' : ''}`} onClick={() => restartQuiz(40, operationType)}>40</button>
