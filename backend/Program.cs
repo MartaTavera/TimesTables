@@ -13,9 +13,9 @@ builder.Services.AddCors(options =>
 {
     options.AddPolicy("AllowFrontend", policy =>
     {
-        policy.WithOrigins("http://localhost:5173", "https://martatavera.github.io")
-            .AllowAnyHeader()
-            .AllowAnyMethod();
+        policy.WithOrigins("http://localhost:5173", "https://martatavera.github.io/TimesTables/")
+    .AllowAnyHeader()
+    .AllowAnyMethod();
     });
 });
 
