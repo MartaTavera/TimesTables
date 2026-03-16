@@ -13,20 +13,9 @@ builder.Services.AddCors(options =>
 {
     options.AddPolicy("AllowFrontend", policy =>
     {
-       
-       policy.WithOrigins("http://localhost:5173", "https://martatavera.github.io")
-```
-
-**Also,** I see in `TimesTables.http` line 1:
-```
-@TimestablesAPI_HostAddress = http://localhost:5168
-```
-
-Update that to:
-```
-@TimestablesAPI_HostAddress = https://timestables.onrender.com
-              .AllowAnyHeader()
-              .AllowAnyMethod();
+        policy.WithOrigins("http://localhost:5173", "https://martatavera.github.io")
+            .AllowAnyHeader()
+            .AllowAnyMethod();
     });
 });
 
@@ -39,9 +28,8 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
-//app.UseHttpsRedirection();
+// app.UseHttpsRedirection();  // Render handles HTTPS at proxy level
 app.UseCors("AllowFrontend");
 app.MapControllers();
 
 app.Run();
-
