@@ -6,17 +6,23 @@ WORKDIR /src
 COPY . .
 
 # Restore dependencies
-RUN dotnet restore "TimetablesAPI.csproj"
+RUN dotnet restore
 
 # Build the application
-RUN dotnet build "TimetablesAPI.csproj" -c Release -o /app/build
+RUN dotnet build -c Release -o /app/build
 
-# Publish stage
+# Publish stage - creates the runtime-ready files
+FROM mcr.microsoft.com/dotnet/sdk:8.0 AS publish
+WORKDIR /src
+COPY --from=build /src .
+RUN dotnet publish -c Release -o /app/publish
+
+# Runtime stage
 FROM mcr.microsoft.com/dotnet/aspnet:8.0
 WORKDIR /app
 
-# Copy published app from build stage
-COPY --from=build /app/build .
+# Copy published app
+COPY --from=publish /app/publish .
 
 # Expose port (Render uses 10000)
 EXPOSE 10000
