@@ -1,4 +1,4 @@
-@TimestablesAPI_HostAddress = http://localhost:5168
+@TimestablesAPI_HostAddress = https://timestables.onrender.com
 
 GET {{TimestablesAPI_HostAddress}}/weatherforecast/
 Accept: application/json
