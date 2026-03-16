@@ -62,7 +62,7 @@ function App() {
   useEffect(() => {
     const fetchQuestions = async () => {
       try {
-        const response = await fetch(`https://timestables-bwbqcvevgaf5fsdp.canadacentral-01.azurewebsites.net/api/questions?count=${questionCount}&operation=${operationType}`);
+        const response = await fetch(`https://timestables-bwbqcvexgaf5fsdp.canadacentral-01.azurewebsites.net/api/questions?count=${questionCount}&operation=${operationType}`);
 
         const data = await response.json();
         const questionsString = data.map((q: any) => q.questionText);
@@ -119,7 +119,7 @@ function App() {
   const submitBatch = async (answers: any[]) => {
     console.log("Sending this data:", JSON.stringify(answers, null, 2));
     try {
-      const response = await fetch('https://timestables-bwbqcvevgaf5fsdp.canadacentral-01.azurewebsites.net/api/Questions/submit', {
+      const response = await fetch('https://timestables-bwbqcvexgaf5fsdp.canadacentral-01.azurewebsites.net/api/Questions/submit', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(answers)
@@ -147,7 +147,9 @@ function App() {
     setQuizResults(null);
 
     try {
-      const response = await fetch(`https://timestables-bwbqcvevgaf5fsdp.canadacentral-01.azurewebsites.net/api/questions?count=${count}&operation=${operation}`);
+      
+    // https://timestables-bwbqcvexgaf5fsdp.canadacentral-01.azurewebsites.net/api/questions
+      const response = await fetch(`https://timestables-bwbqcvexgaf5fsdp.canadacentral-01.azurewebsites.net/api/questions?count=${count}&operation=${operation}`);
       const data = await response.json();
       const answers = data.map((q: any) => q.answer);
       setQuestions(data);
