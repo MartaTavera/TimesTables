@@ -1,16 +1,14 @@
 # Build stage
 FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build
-WORKDIR /src
+WORKDIR /build
 
-# Copy csproj and restore
-COPY TimetablesAPI.csproj .
-RUN dotnet restore TimetablesAPI.csproj
-
-# Copy everything else
+# Copy everything
 COPY . .
 
-# Publish
-RUN dotnet publish TimetablesAPI.csproj -c Release -o /app/publish
+# Build and publish
+RUN dotnet restore
+RUN dotnet build -c Release
+RUN dotnet publish -c Release -o /app/publish
 
 # Runtime stage
 FROM mcr.microsoft.com/dotnet/aspnet:8.0
