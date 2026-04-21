@@ -13,7 +13,13 @@ builder.Services.AddCors(options =>
 {
     options.AddPolicy("AllowFrontend", policy =>
     {
-      policy.AllowAnyOrigin()
+
+      policy.WithOrigins(
+    "http://localhost:5173",      // For when YOU develop locally
+    "http://localhost:5174",      // Backup local port
+    "https://martatavera.github.io"  // For production (GitHub Pages)
+)
+
     .AllowAnyHeader()
     .AllowAnyMethod();
     });
