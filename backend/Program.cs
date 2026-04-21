@@ -1,5 +1,6 @@
 using TimetablesAPI.Services;
 var builder = WebApplication.CreateBuilder(args);
+ // Redeploying after Azure subscription reactivation
 
 // Add services to the container.
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
