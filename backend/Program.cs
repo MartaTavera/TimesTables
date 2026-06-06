@@ -1,4 +1,6 @@
 using TimetablesAPI.Services;
+using TimetablesAPI.Data;
+using Microsoft.EntityFrameworkCore;
 var builder = WebApplication.CreateBuilder(args);
  // Redeploying after Azure subscription reactivation
 
@@ -7,7 +9,8 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
-
+builder.Services.AddDbContext<TimestablesDbContext>(options =>
+    options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 builder.Services.AddScoped<QuestionsGeneratorService>();
 
 builder.Services.AddCors(options =>

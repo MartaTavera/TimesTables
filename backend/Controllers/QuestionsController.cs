@@ -1,6 +1,7 @@
 using Microsoft.AspNetCore.Mvc;
 using TimetablesAPI.Models;
 using TimetablesAPI.Services;
+using TimetablesAPI.Data;
 
 namespace TimetablesAPI.Controllers
 {
@@ -9,11 +10,13 @@ namespace TimetablesAPI.Controllers
     public class QuestionsController : ControllerBase
     {
         private readonly QuestionsGeneratorService _questionGenerator;
-
-        public QuestionsController(QuestionsGeneratorService questionGenerator)
+        private readonly TimestablesDbContext _context; 
+        public QuestionsController(QuestionsGeneratorService questionGenerator, TimestablesDbContext context)
         {
             _questionGenerator = questionGenerator;
+            _context = context;
         }
+      
 
         [HttpGet]
         public ActionResult<IEnumerable<Question>> GetQuestions(
@@ -27,7 +30,7 @@ namespace TimetablesAPI.Controllers
         }
 
         [HttpPost("submit")]
-        public ActionResult<QuizResult> SubmitAnswers([FromBody] List<UserAnswer> userAnswers)
+        public async Task<ActionResult<QuizResult>> SubmitAnswers([FromBody] List<UserAnswer> userAnswers)
         {
             int correctCount = 0;
             var results = new List<AnswerResult>();
@@ -54,14 +57,19 @@ namespace TimetablesAPI.Controllers
                     IsCorrect = isCorrect
                 });
             }
-
-            return Ok(new QuizResult
-            {
+            var quizResult = new QuizResult {
                 TotalQuestions = userAnswers.Count,
                 CorrectAnswers = correctCount,
                 Score = (int)((correctCount / (double)userAnswers.Count) * 100),
-                Results = results
-            });
+                Results = results,
+                DateTaken= DateTime.UtcNow,
+                UserId = null
+            };
+            _context.QuizResult.Add(quizResult);
+            await _context.SaveChangesAsync();
+
+
+            return Ok(quizResult);
         }
     }
 }
