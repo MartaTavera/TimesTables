@@ -1,6 +1,8 @@
 using TimetablesAPI.Services;
 using TimetablesAPI.Data;
 using Microsoft.EntityFrameworkCore;
+using Azure.Identity;
+using Azure.Extensions.AspNetCore.Configuration.Secrets;
 var builder = WebApplication.CreateBuilder(args);
  // Redeploying after Azure subscription reactivation
 
