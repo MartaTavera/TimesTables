@@ -1,9 +1,10 @@
 using TimetablesAPI.Models;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 
 namespace TimetablesAPI.Data
 {
-    public class TimestablesDbContext : DbContext
+    public class TimestablesDbContext : IdentityDbContext<ApplicationUser>
     {
         public TimestablesDbContext(DbContextOptions<TimestablesDbContext> options) : base(options)
 {

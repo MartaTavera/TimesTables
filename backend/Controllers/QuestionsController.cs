@@ -2,6 +2,7 @@ using Microsoft.AspNetCore.Mvc;
 using TimetablesAPI.Models;
 using TimetablesAPI.Services;
 using TimetablesAPI.Data;
+using Microsoft.AspNetCore.Authorization;
 
 namespace TimetablesAPI.Controllers
 {
@@ -28,7 +29,7 @@ namespace TimetablesAPI.Controllers
             var questions = _questionGenerator.GenerateBatch(count, min, max, operation);
             return Ok(questions);
         }
-
+        [Authorize]
         [HttpPost("submit")]
         public async Task<ActionResult<QuizResult>> SubmitAnswers([FromBody] List<UserAnswer> userAnswers)
         {
@@ -57,13 +58,14 @@ namespace TimetablesAPI.Controllers
                     IsCorrect = isCorrect
                 });
             }
+            var userId = User.FindFirst(System.Security.Claims.ClaimTypes.NameIdentifier)?.Value;
             var quizResult = new QuizResult {
                 TotalQuestions = userAnswers.Count,
                 CorrectAnswers = correctCount,
                 Score = (int)((correctCount / (double)userAnswers.Count) * 100),
                 Results = results,
                 DateTaken= DateTime.UtcNow,
-                UserId = null
+                UserId = userId
             };
             _context.QuizResult.Add(quizResult);
             await _context.SaveChangesAsync();
