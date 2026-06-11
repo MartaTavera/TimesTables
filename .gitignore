@@ -20,6 +20,8 @@ backend/bin/
 backend/obj/
 backend/appsettings.Development.json
 
+
+frontend/.env
 # Editor directories and files
 .vscode/*
 !.vscode/extensions.json

@@ -1,5 +1,6 @@
 import { SetStateAction, useState, useRef, useEffect } from 'react';
 import './App.css';
+import AuthPage from './AuthPage';
 
 // Utility function to determine medal tier
 const getMedalTier = (score: number, total: number) => {
@@ -34,6 +35,7 @@ const MedalDisplay = ({ medal }: { medal: ReturnType<typeof getMedalTier> }) => 
 };
 
 function App() {
+  const API_URL = import.meta.env.VITE_API_URL;
 
   interface QuestionData {
     number1: number;
@@ -55,15 +57,16 @@ function App() {
   const [questionCount, setQuestionCount] = useState(10);
   const [operationType, setOperationType] = useState("both");
   const inputRef = useRef<HTMLInputElement>(null);
-  
+  const [token, setToken] = useState<string | null>(localStorage.getItem("token"))
+
   console.log("Current questionCount:", questionCount);
   console.log("Current operationType:", operationType);
   
   useEffect(() => {
     const fetchQuestions = async () => {
       try {
-        const response = await fetch(`https://timestables-bwbqcvexgaf5fsdp.canadacentral-01.azurewebsites.net/api/questions?count=${questionCount}&operation=${operationType}`);
-
+        //const response = await fetch(`https://timestables-bwbqcvexgaf5fsdp.canadacentral-01.azurewebsites.net/api/questions?count=${questionCount}&operation=${operationType}`);
+        const response = await fetch(`${API_URL}/api/questions?count=${questionCount}&operation=${operationType}`);
         const data = await response.json();
         const questionsString = data.map((q: any) => q.questionText);
         const answers = data.map((q: any) => q.answer);
@@ -119,9 +122,13 @@ function App() {
   const submitBatch = async (answers: any[]) => {
     console.log("Sending this data:", JSON.stringify(answers, null, 2));
     try {
-      const response = await fetch('https://timestables-bwbqcvexgaf5fsdp.canadacentral-01.azurewebsites.net/api/Questions/submit', {
+      //const response = await fetch('https://timestables-bwbqcvexgaf5fsdp.canadacentral-01.azurewebsites.net/api/Questions/submit', {
+        const response = await fetch(`${API_URL}/api/Questions/submit`, {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
+        headers: { 
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${token}`
+      },
         body: JSON.stringify(answers)
       });
       console.log("Response status:", response.status);
@@ -149,7 +156,8 @@ function App() {
     try {
       
     // https://timestables-bwbqcvexgaf5fsdp.canadacentral-01.azurewebsites.net/api/questions
-      const response = await fetch(`https://timestables-bwbqcvexgaf5fsdp.canadacentral-01.azurewebsites.net/api/questions?count=${count}&operation=${operation}`);
+      //const response = await fetch(`https://timestables-bwbqcvexgaf5fsdp.canadacentral-01.azurewebsites.net/api/questions?count=${count}&operation=${operation}`);
+      const response = await fetch(`${API_URL}/api/questions?count=${count}&operation=${operation}`);
       const data = await response.json();
       const answers = data.map((q: any) => q.answer);
       setQuestions(data);
@@ -166,8 +174,11 @@ function App() {
 
   const medal = getMedalTier(score, questions.length);
 
+  if (!token) {
+    return <AuthPage onLogin={(t) => setToken(t)} />;
+  }
   return (
-    <div>
+   <div>
       {currentQuestionIndex < questions.length ? (
         <>   
           <div className="selectors-container">
