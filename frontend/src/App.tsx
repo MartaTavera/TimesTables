@@ -58,6 +58,7 @@ function App() {
   const [operationType, setOperationType] = useState("both");
   const inputRef = useRef<HTMLInputElement>(null);
   const [token, setToken] = useState<string | null>(localStorage.getItem("token"))
+  const [loading, setLoading] = useState<boolean>(true);
 
   console.log("Current questionCount:", questionCount);
   console.log("Current operationType:", operationType);
@@ -73,6 +74,7 @@ function App() {
 
         setQuestions(data);
         setCorrectAnswers(answers);
+        setLoading(false);
 
         console.log("Questions:", questionsString);
         console.log("Answers:", answers);
@@ -177,7 +179,11 @@ function App() {
   if (!token) {
     return <AuthPage onLogin={(t) => setToken(t)} />;
   }
+  if (loading) {
+    return <div>Loading...</div>;
+}
   return (
+    
    <div>
       {currentQuestionIndex < questions.length ? (
         <>   
