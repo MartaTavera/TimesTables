@@ -223,6 +223,9 @@ font-size: 1.2rem;
   .button-group-login button{
     font-size: 0.75rem;
   }
+  .button-group .operation-button{
+    font-size: 0.8rem;
+  }
   .question-count-selector {
     display: flex;
     flex-direction: row;
@@ -234,6 +237,7 @@ font-size: 1.2rem;
   .button-group {
     width: 100%;
   }  
+ 
  
 }
 
@@ -279,6 +283,9 @@ font-size: 1.2rem;
     margin-bottom: 5px;
     font-size: 0.75rem;
     gap:1rem;
+  }
+  .button-group .operation-button {
+    font-size: 0.75rem;
   }
 
 
@@ -421,7 +428,7 @@ font-size: 1.2rem;
   background-color: #fff;
   cursor: pointer;
   border-radius: 8px;
-  font-size: 1.5em;
+  font-size: 18px;
   transition: all 0.3s ease;
 }
 
