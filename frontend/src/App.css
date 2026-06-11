@@ -150,7 +150,7 @@ input.user-answer[type=number]:focus {
   display: flex;
   justify-content: center;
   padding: 8px;
-  gap: 40px;
+  gap: 1.2rem;
   flex-wrap: wrap;
 }
 .button-group-login button{
@@ -158,12 +158,16 @@ padding:6px 12px;
 border-radius: 30px;
 background-color: #777fd4;
 color: white;
-font-size: 16px;
+font-size: 1.2rem;
 }
 
 .auth-form input {
   padding: 4px 10px;
   margin: 5px;
+  width: 100%;
+  max-width: 300px;
+  box-sizing: border-box;
+
 }
 .question-button {
   padding: 2px 8px;
@@ -216,6 +220,9 @@ font-size: 16px;
   .question-button{
     font-size: 0.75rem;
   }
+  .button-group-login button{
+    font-size: 0.75rem;
+  }
   .question-count-selector {
     display: flex;
     flex-direction: row;
@@ -229,9 +236,6 @@ font-size: 16px;
   }  
  
 }
-
-
-
 
 @media (max-width: 480px) {
   #root {
@@ -266,6 +270,16 @@ font-size: 16px;
     padding: 2px 8px;
     font-size: 0.7rem;
    }
+   .auth-form {
+    padding: 10px;
+  }
+  
+  .auth-form label {
+    display: block;
+    margin-bottom: 5px;
+    font-size: 0.75rem;
+    gap:1rem;
+  }
 
 
 }
