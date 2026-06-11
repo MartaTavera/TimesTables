@@ -271,9 +271,8 @@ function App() {
             </div>
           )}
           <div>
-            <button
-              onClick={() => window.location.reload()}>
-              Try again
+            <button onClick={() => restartQuiz(questionCount, operationType)}>
+            Try again
             </button>
           </div>
         </div>
