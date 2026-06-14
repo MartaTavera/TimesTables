@@ -12,10 +12,14 @@ namespace TimetablesAPI.Controllers
     {
         private readonly QuestionsGeneratorService _questionGenerator;
         private readonly TimestablesDbContext _context; 
-        public QuestionsController(QuestionsGeneratorService questionGenerator, TimestablesDbContext context)
+        private readonly ScoreCalculatorService _scoreCalculator;
+
+        public QuestionsController(QuestionsGeneratorService questionGenerator, TimestablesDbContext context, ScoreCalculatorService scoreCalculator)
+
         {
             _questionGenerator = questionGenerator;
             _context = context;
+            _scoreCalculator = scoreCalculator;
         }
       
 
@@ -33,31 +37,9 @@ namespace TimetablesAPI.Controllers
         [HttpPost("submit")]
         public async Task<ActionResult<QuizResult>> SubmitAnswers([FromBody] List<UserAnswer> userAnswers)
         {
-            int correctCount = 0;
-            var results = new List<AnswerResult>();
-
-            foreach (var answer in userAnswers)
-            {
-                bool isCorrect = answer.Operation == "÷"
-                    ? (answer.Number1 / answer.Number2) == answer.UAnswer
-                    : (answer.Number1 * answer.Number2) == answer.UAnswer;
-
-                int correctAnswer = answer.Operation == "÷"
-                    ? answer.Number1 / answer.Number2
-                    : answer.Number1 * answer.Number2;
-
-                if (isCorrect) correctCount++;
-
-                results.Add(new AnswerResult
-                {
-                    Number1 = answer.Number1,
-                    Number2 = answer.Number2,
-                    Operation = answer.Operation,
-                    UserAnswer = answer.UAnswer,
-                    CorrectAnswer = correctAnswer,
-                    IsCorrect = isCorrect
-                });
-            }
+            
+             var (correctCount,results) = _scoreCalculator.Calculate(userAnswers);
+            
             var userId = User.FindFirst(System.Security.Claims.ClaimTypes.NameIdentifier)?.Value;
             var quizResult = new QuizResult {
                 TotalQuestions = userAnswers.Count,

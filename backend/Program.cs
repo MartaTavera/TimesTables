@@ -80,6 +80,7 @@ builder.Services.AddAuthentication(options =>
 });
 
 builder.Services.AddScoped<QuestionsGeneratorService>();
+builder.Services.AddScoped<ScoreCalculatorService>();
 
 builder.Services.AddCors(options =>
 {

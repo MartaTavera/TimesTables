@@ -81,7 +81,7 @@ button:focus-visible {
 }
 @media (max-width: 768px) {
   body {
-    background-size: 100%;
+    background-size: 160%;
     background-position: center center;
   }
 }
