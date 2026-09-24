@@ -13,11 +13,18 @@ builder.Services.AddCors(options =>
 {
     options.AddPolicy("AllowFrontend", policy =>
     {
-        policy.WithOrigins("http://localhost:5173", "https://martatavera.github.io")
-            .AllowAnyHeader()
-            .AllowAnyMethod();
+       policy.WithOrigins(
+        "http://localhost:5173",
+        "http://localhost:5174",
+        "https://martatavera.github.io")
+    .AllowAnyHeader()
+    .AllowAnyMethod();
     });
 });
+
+
+
+
 
 var app = builder.Build();
 
