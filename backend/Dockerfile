@@ -25,4 +25,4 @@ ENV ASPNETCORE_URLS=http://+:10000
 ENV ASPNETCORE_ENVIRONMENT=Production
 
 # Run
-ENTRYPOINT ["dotnet", "TimetablesAPI.dll"]
+ENTRYPOINT ["dotnet", "TimestablesAPI.dll"]
