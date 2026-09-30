@@ -169,7 +169,7 @@ function App() {
         <>   
           <div className="selectors-container">
             <div className="question-count-selector">
-              <span style={{ fontSize: '1.1em' }}> Select number of questions: </span>
+              <span style={{ fontSize: '0.75rem' }}> Number of questions: </span>
               <div className="button-group">
                 <button className={`question-button ${questionCount === 30 ? 'selected' : ''}`} onClick={() => restartQuiz(30, operationType)}>30</button>
                 <button className={`question-button ${questionCount === 40 ? 'selected' : ''}`} onClick={() => restartQuiz(40, operationType)}>40</button>
@@ -179,7 +179,7 @@ function App() {
             </div>
 
             <div className="operation-selector">
-              <span style={{ fontSize: '1.1em' }}> Select operation: </span>
+              <span style={{ fontSize: '0.75em' }}> operation: </span>
               <div className="button-group">
                 <button className={`operation-button ${operationType === '×' ? 'selected' : ''}`} onClick={() => restartQuiz(questionCount, '×')}> ×</button>
                 <button className={`operation-button ${operationType === '÷' ? 'selected' : ''}`} onClick={() => restartQuiz(questionCount, '÷')}> ÷</button>
