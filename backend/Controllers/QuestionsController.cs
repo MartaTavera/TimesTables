@@ -17,7 +17,7 @@ namespace TimetablesAPI.Controllers
 
         [HttpGet]
         public ActionResult<IEnumerable<Question>> GetQuestions(
-            [FromQuery] int count = 10,
+            [FromQuery] int count = 20,
             [FromQuery] int min = 2,
             [FromQuery] int max = 12,
             [FromQuery] string operation = "both")

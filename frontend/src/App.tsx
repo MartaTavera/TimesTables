@@ -53,7 +53,7 @@ function App() {
   const [result, setResult] = useState("");
   const [quizResults, setQuizResults] = useState<any>(null);
   const [questionCount, setQuestionCount] = useState(10);
-  const [operationType, setOperationType] = useState("both");
+  const [operationType, setOperationType] = useState("×");
   const inputRef = useRef<HTMLInputElement>(null);
   
   console.log("Current questionCount:", questionCount);
@@ -164,14 +164,13 @@ function App() {
   const medal = getMedalTier(score, questions.length);
 
   return (
-    <div>
+    <div className="quiz-card">
       {currentQuestionIndex < questions.length ? (
         <>   
           <div className="selectors-container">
             <div className="question-count-selector">
               <span style={{ fontSize: '1.1em' }}> Select number of questions: </span>
               <div className="button-group">
-                <button className={`question-button ${questionCount === 20 ? 'selected' : ''}`} onClick={() => restartQuiz(20, operationType)}>20</button>
                 <button className={`question-button ${questionCount === 30 ? 'selected' : ''}`} onClick={() => restartQuiz(30, operationType)}>30</button>
                 <button className={`question-button ${questionCount === 40 ? 'selected' : ''}`} onClick={() => restartQuiz(40, operationType)}>40</button>
                 <button className={`question-button ${questionCount === 50 ? 'selected' : ''}`} onClick={() => restartQuiz(50, operationType)}>50</button>
