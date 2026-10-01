@@ -1,10 +1,12 @@
 import { SetStateAction, useState, useRef, useEffect } from 'react';
+import { EmailPanel } from "./EmailPanel";
+
 import './App.css';
 
 // Utility function to determine medal tier
 const getMedalTier = (score: number, total: number) => {
   const percentage = (score / total) * 100;
-  
+
   if (percentage === 100) {
     return { tier: 'goldcup', percentage: 100, label: 'Perfect Score!' };
   } else if (percentage >= 90) {
@@ -54,11 +56,12 @@ function App() {
   const [quizResults, setQuizResults] = useState<any>(null);
   const [questionCount, setQuestionCount] = useState(10);
   const [operationType, setOperationType] = useState("×");
+  const [loading, setLoading] = useState<boolean>(true);
   const inputRef = useRef<HTMLInputElement>(null);
-  
+
   console.log("Current questionCount:", questionCount);
   console.log("Current operationType:", operationType);
-  
+
   useEffect(() => {
     const fetchQuestions = async () => {
       try {
@@ -69,6 +72,7 @@ function App() {
 
         setQuestions(data);
         setCorrectAnswers(answers);
+        setLoading(false);
 
         console.log("Questions:", questionsString);
         console.log("Answers:", answers);
@@ -118,7 +122,7 @@ function App() {
   const submitBatch = async (answers: any[]) => {
     console.log("Sending this data:", JSON.stringify(answers, null, 2));
     try {
-      const response = await fetch('http://localhost:5168/api/Questions/submit', {
+      const response = await fetch(`${import.meta.env.VITE_API_URL}/api/Questions/submit`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(answers)
@@ -146,7 +150,7 @@ function App() {
     setQuizResults(null);
 
     try {
-      const response = await fetch(`http://localhost:5168/api/questions?count=${count}&operation=${operation}`);
+      const response = await fetch(`${import.meta.env.VITE_API_URL}/api/questions?count=${count}&operation=${operation}`);
       const data = await response.json();
       const answers = data.map((q: any) => q.answer);
       setQuestions(data);
@@ -163,10 +167,23 @@ function App() {
 
   const medal = getMedalTier(score, questions.length);
 
+  const emailQuestions = questions.map((q, i) => ({
+    id: `Q${i + 1}`,
+    text: q.questionText,
+    displayAnswer: q.answer,
+  }));
+
+  const emailAnswers = userAnswersSet.map((a, i) => ({
+    correct: a.UAnswer === correctAnswers[i],
+    userDisplay: String(a.UAnswer),
+  }));
+  if (loading) {
+    return <div>Loading...</div>;
+  }
   return (
     <div className="quiz-card">
       {currentQuestionIndex < questions.length ? (
-        <>   
+        <>
           <div className="selectors-container">
             <div className="question-count-selector">
               <span style={{ fontSize: '0.75rem' }}> Number of questions: </span>
@@ -189,50 +206,56 @@ function App() {
           </div>
 
           <div className="title"> Multiplication Quiz
-          <div className="question-container">
-            <div className='question-box'>
-              <form onSubmit={handleSubmit}>
-                <label >
-                  {questions[currentQuestionIndex].questionText} =
-                </label>
-                <input className='user-answer'
-                  type="number"
-                  onChange={handleInputChange}
-                  ref={inputRef}
-                  autoFocus
-                  required
-                  value={userAnswer} />
-              </form>
-              {feedback && (
-                <div className="answer-feedback">
-                  <span className={result === "correct" ? 'correct' : 'incorrect'}>
-                    {result === "correct" ? '✓' : (
-                      <>
-                        <span>✗</span>
-                        <span className='correct-answer'>Answer is: {correctAnswers[currentQuestionIndex]}</span>
-                      </>
-                    )}
-                  </span>
-                </div>
+            <div className="question-container">
+              <div className='question-box'>
+                <form onSubmit={handleSubmit}>
+                  <label >
+                    {questions[currentQuestionIndex].questionText} =
+                  </label>
+                  <input className='user-answer'
+                    type="number"
+                    onChange={handleInputChange}
+                    ref={inputRef}
+                    autoFocus
+                    required
+                    value={userAnswer} />
+                </form>
+                {feedback && (
+                  <div className="answer-feedback">
+                    <span className={result === "correct" ? 'correct' : 'incorrect'}>
+                      {result === "correct" ? '✓' : (
+                        <>
+                          <span>✗</span>
+                          <span className='correct-answer'>Answer is: {correctAnswers[currentQuestionIndex]}</span>
+                        </>
+                      )}
+                    </span>
+                  </div>
+                )}
+              </div>
+            </div>
+            <div>
+              {currentQuestionIndex != 0 && (
+                <p className="score">
+                  Score = {score}/{currentQuestionIndex}
+                </p>
               )}
             </div>
           </div>
-          <div>
-            {currentQuestionIndex != 0 && (
-              <p className="score">
-                Score = {score}/{currentQuestionIndex}
-              </p>
-            )}
-          </div>
-        </div>
         </>
       ) : (
         <div className="end-quiz-text" > Quiz completed!
           <p className='final-score'>Your final Score is : {score}/{questions.length}</p>
-          
+          <EmailPanel
+            score={score}
+            total={questions.length}
+            answers={emailAnswers}
+            questions={emailQuestions}
+          />
+
           {medal.tier !== 'none' && <MedalDisplay medal={medal} />}
           {medal.tier === 'none' && <p className="keep-practicing">{medal.label}</p>}
-          
+
           {quizResults && quizResults.results && (
             <div>
               <p className="score-line"> {quizResults.score}% </p>
