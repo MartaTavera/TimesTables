@@ -8,7 +8,25 @@ const COLORS = {
   neu: "#64748b",
 };
 
-export function EmailPanel({ score, total, answers, questions }) {
+interface EmailQuestion {
+  id: string;
+  text: string;
+  displayAnswer: number;
+}
+
+interface EmailAnswer {
+  correct: boolean;
+  userDisplay: string;
+}
+
+interface EmailPanelProps {
+  score: number;
+  total: number;
+  answers: EmailAnswer[];
+  questions: EmailQuestion[];
+}
+
+export function EmailPanel({ score, total, answers, questions }: EmailPanelProps) {
   const [name, setName]       = useState("");
   const [sent, setSent]       = useState(false);
   const [sending, setSending] = useState(false);
@@ -18,7 +36,7 @@ export function EmailPanel({ score, total, answers, questions }) {
     if (!name.trim()) { setErr("Please enter your name."); return; }
     setSending(true); setErr("");
 
-    const rows = questions.map((q, i) => {
+    const rows = questions.map((q: EmailQuestion, i: number) => {
       const a = answers[i];
       return `${q.id.padEnd(4)} | ${a.correct ? "✓" : "✗"} | ${q.text.slice(0, 55).padEnd(55)} | Your: ${(a.userDisplay || "—").padEnd(12)} | Answer: ${q.displayAnswer}`;
     }).join("\n");
