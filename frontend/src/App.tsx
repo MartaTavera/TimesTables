@@ -208,7 +208,7 @@ function App() {
           <div className="title"> Multiplication Quiz
             <div className="question-container">
               <div className='question-box'>
-                <form onSubmit={handleSubmit}>
+                <form className="question-form" onSubmit={handleSubmit}>
                   <label >
                     {questions[currentQuestionIndex].questionText} =
                   </label>

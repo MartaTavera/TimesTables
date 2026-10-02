@@ -269,9 +269,13 @@ input.user-answer[type=number]:focus {
 @media (max-width: 480px) {
   #root {
     width: 95%;
+    max-width: 95%;
+    margin: 1rem auto;
+    position: static;
+    right: auto;
     padding: 1rem;
     border-radius: 20px;
-    max-height: 50%;
+    max-height: none;
   }
 
   .question-container {
@@ -286,22 +290,20 @@ input.user-answer[type=number]:focus {
     width: 60%;
   }
   .operation-selector {
-    display: flex;
-    align-items: center;
+    flex-wrap: nowrap;
     gap: 8px;
-    flex-wrap: wrap;
   }
 
-  .button-group {
-    display: flex;
+  .operation-selector .button-group {
+    flex-wrap: nowrap;
     gap: 6px;
-    flex-wrap: wrap;
   }
+
   .operation-button {
-    font-size: 0.15em;
-    padding: 1px 4px;
-    color: red;
+    font-size: 0.85em;
+    padding: 2px 6px;
   }
+
   .answer-feedback {
     position: static;
     margin-top: 0.5rem;
@@ -322,6 +324,23 @@ input.user-answer[type=number]:focus {
     padding: 2px 8px;
     font-size: 0.7rem;
 
+  }
+
+  .question-box {
+    font-size: clamp(1.4rem, 6vw, 40px);
+  }
+
+  .question-form {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: nowrap;
+    gap: 0.5rem;
+  }
+
+  .user-answer {
+    width: 4.5rem;
+    flex-shrink: 0;
   }
 }
 
